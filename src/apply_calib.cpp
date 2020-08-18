@@ -44,7 +44,7 @@
 namespace imu_calib
 {
 
-ApplyCalib::ApplyCalib() :
+ApplyCalib::ApplyCalib(std::string num_imu) :
   gyro_sample_count_(0),
   gyro_bias_x_(0.0),
   gyro_bias_y_(0.0),
@@ -53,8 +53,9 @@ ApplyCalib::ApplyCalib() :
   ros::NodeHandle nh;
   ros::NodeHandle nh_private("~");
 
+  imu_number = num_imu;
   std::string calib_file;
-  nh_private.param<std::string>("calib_file", calib_file, "imu_calib.yaml");
+  nh_private.param<std::string>("calib_file", calib_file, "imu_calib_" + imu_number + ".yaml");
 
   if (!calib_.loadCalib(calib_file) || !calib_.calibReady())
   {
@@ -69,7 +70,7 @@ ApplyCalib::ApplyCalib() :
   nh_private.param<int>("queue_size", queue_size, 5);
 
   raw_sub_ = nh.subscribe("raw", queue_size, &ApplyCalib::rawImuCallback, this);
-  corrected_pub_ = nh.advertise<sensor_msgs::Imu>("corrected", queue_size);
+  corrected_pub_ = nh.advertise<sensor_msgs::Imu>("corrected_imu_data_" + imu_number, queue_size);
 }
 
 void ApplyCalib::rawImuCallback(sensor_msgs::Imu::ConstPtr raw)

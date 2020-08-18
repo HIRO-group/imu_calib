@@ -50,7 +50,7 @@ namespace imu_calib
 class ApplyCalib
 {
 public:
-  ApplyCalib();
+  ApplyCalib(std::string num_imu);
 
 private:
   AccelCalib calib_;
@@ -67,6 +67,8 @@ private:
   double gyro_bias_x_;
   double gyro_bias_y_;
   double gyro_bias_z_;
+
+  std::string imu_number;
 };
 
 } // namespace accel_calib

@@ -54,7 +54,7 @@ namespace imu_calib
 class DoCalib
 {
 public:
-  DoCalib();
+  DoCalib(std::string num_imu);
 
   bool running();
 
@@ -78,6 +78,8 @@ private:
 
   ros::Subscriber imu_sub_;
   void imuCallback(sensor_msgs::Imu::ConstPtr imu);
+
+  std::string imu_number;
 };
 
 } // namespace accel_calib

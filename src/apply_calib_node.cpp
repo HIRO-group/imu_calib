@@ -47,7 +47,8 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "apply_calib");
 
-  imu_calib::ApplyCalib calib;
+  imu_calib::ApplyCalib calib(argv[1]);
+  std::cout << argv[1] << std::endl;
   ros::spin();
 
   return 0;
