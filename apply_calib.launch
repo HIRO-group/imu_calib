@@ -1,0 +1,11 @@
+<!-- launch file for applying calibrations for each imu. -->
+<!-- Runs 6 nodes - that is the number of imus we are using, -->
+<!-- please feel free to edit to add/remove nodes. -->
+<launch>
+  <node pkg="imu_calib" name="apply_calib_1" type="apply_calib" args="1" output="screen" />
+  <node pkg="imu_calib" name="apply_calib_2" type="apply_calib" args="2" output="screen" />
+  <node pkg="imu_calib" name="apply_calib_3" type="apply_calib" args="3" output="screen" />
+  <node pkg="imu_calib" name="apply_calib_4" type="apply_calib" args="4" output="screen" />
+  <node pkg="imu_calib" name="apply_calib_5" type="apply_calib" args="5" output="screen" />
+  <node pkg="imu_calib" name="apply_calib_6" type="apply_calib" args="6" output="screen" />
+</launch>
