@@ -17,8 +17,8 @@ The underlying algorithm is a least-squares calibration approach based on and si
 #### Topics
 
 ##### Subscribed Topics
-- `imu` (sensor_msgs/Imu) <br>
-  The raw, uncalibrated IMU measurements
+- `imu_data_<imu_num>` (sensor_msgs/Imu) <br>
+  The raw, uncalibrated IMU measurements from `imu_num`
 
 #### Parameters
 - `~calib_file` (string, default: "imu_calib.yaml") <br>
@@ -46,11 +46,11 @@ Applies the accelerometer calibration parameters computed by the do_calib node. 
 #### Topics
 
 ##### Subscribed Topics
-- `raw` (sensor_msgs/Imu) <br>
-  The raw, uncalibrated IMU measurements
+- `imu_data_<imu_num>` (sensor_msgs/Imu) <br>
+  The raw, uncalibrated IMU measurements from `imu_num`.
 
 ##### Published Topics
-- `corrected` (sensor_msgs/Imu) <br>
+- `corrected_imu_data_<imu_num>` (sensor_msgs/Imu) <br>
   The corrected, calibrated IMU measurements
 
 #### Parameters
