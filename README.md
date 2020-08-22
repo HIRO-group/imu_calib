@@ -2,6 +2,8 @@
 
 This repository contains a ROS package with tools for computing and applying calibration parameters to IMU measurements.
 
+* Note: This is the HIRO group's adaptation of the `imu_calib` package for multiple imus. Usage will be described below.
+
 ## Usage
 The package contains two nodes. The first computes the accelerometer calibration parameters and saves them to a YAML file, and needs to be run only once. After you have run this node to generate the YAML calibration file, the second node uses that file to apply the calibration to an uncalibrated IMU topic to produce a calibrated IMU topic.
 
@@ -25,6 +27,18 @@ The underlying algorithm is a least-squares calibration approach based on and si
   The number of measurements to collect for each orientation
 - `~reference_acceleration` (double, default: 9.80665) <br>
   The expected acceleration due to gravity
+  
+  
+#### How To Run
+To run with our changes:
+
+```sh
+# from a catkin workspace..
+catkin build
+source devel/setup.bash
+rosrun imu_calib do_calib <imu_num>
+```
+In order for the last command to work, you will need data (specifically, Imu messages) being published to the `imu_data_<imu_num>` topic.
 
 ### apply_calib
 Applies the accelerometer calibration parameters computed by the do_calib node. Also optionally (enabled by default) computes the gyro biases at startup and subtracts them off.
@@ -46,3 +60,15 @@ Applies the accelerometer calibration parameters computed by the do_calib node. 
   Whether to compute gyro biases at startup and subsequently subtract them off
 - `~gyro_calib_samples` (int, default: 100) <br>
   The number of measurements to use for computing the gyro biases
+
+#### How To Run
+To run with our changes:
+
+```sh
+# from a catkin workspace..
+catkin build
+source devel/setup.bash
+rosrun imu_calib apply_calib <imu_num>
+```
+In order for the last command to work, you will needed to have performed `do_calib` (see above with our relevant steps), which will write the imu calibration parameters to a yaml file. From there, `apply_calib` will take that yaml file and messages from the `imu_data_<imu_num>` nodes and apply calibration.
+
